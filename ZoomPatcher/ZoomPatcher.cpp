@@ -8,8 +8,7 @@
 #include <sys/stat.h>
 #include <string>
 #include <fstream>
-#include "patchedDLL.hpp"
-
+#include <time.h>
 
 DWORD pids[16];
 int lastPID = 0;
@@ -106,6 +105,8 @@ LPVOID inject(DWORD pid, char* dll) {
 struct stat info;
 
 int main() {
+	srand(time(NULL));
+
 	// declare variables
 	const char* process = "Zoom.exe";
 	const char* maindll = "ZoomWebcamPatch.dll";
@@ -122,8 +123,37 @@ int main() {
 		Sleep(1000);
 		return ERROR;
 	}
+	
+	//removed file patch due to it breaking the screensharing
 
-	std::cout << "[+] Waiting for Zoom... \n\n[!] You can press HOME to patch the file rather than runtime patching. You can learn more on GitHub.\n\n";
+	std::string titles[12] = { "ZoomWebcamFix - We're over China.",
+		"ZoomWebcamFix - Made with <3 by Vaxer",
+		"ZoomWebcamFix - So you can go and troll people with your green screen online :)",
+		"ZoomWebcamFix - It's a bird! It's a plane! No, it's just OBS.",
+		"ZoomWebcamFix - Open source, so you can trust me. I think.",
+		"ZoomWebcamFix - Works as advertised, so I can write those titles :)",
+		"ZoomWebcamFix - Because Zoom's devs are incompetent.",
+		"ZoomWebcamFix - I have the power of God and OBS on my side!",
+		"ZoomWebcamFix - Because I, too, want to put an anime girl behind me.",
+		"ZoomWebcamFix - Whoaa Kyle, nice room you have there!",
+		"ZoomWebcamFix - Coding is fun, but only when you finish coding.",
+		"ZoomWebcamFix - What is love..."};
+
+	int title = std::rand() % 12;
+
+	SetConsoleTitle(titles[title].c_str());
+
+	std::string tips[5] = {"You can report issues or suggestions at github.",
+		"If nothing works, there should be an update. If there is not, it should be in a while. I think.",
+		"You can minimize this window, just don't close it.",
+		"This window will close when zoom closes.",
+		"To actually exit Zoom, click the arrow on the taskbar, right click the Zoom icon and hit exit."};
+
+	int tip = std::rand() % 5;
+
+	std::cout << "[tip] " << tips[tip] <<  "\n\n[+] Waiting for Zoom... \n\n";
+
+
 
 	LPVOID addr;
 
@@ -132,92 +162,7 @@ int main() {
 
 	while (ZoomRunning() == false) {
 		if (GetAsyncKeyState(VK_END)) goto end;
-		if (GetAsyncKeyState(VK_HOME) && !patched) {
-			patched = true;
-
-			std::cout << "[+] Local Patching SafeCheck... \n\n";
-
-			if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, path))) {
-				s_patha = path;
-				s_patha += "\\Zoom";
-
-				for (int i = -1; i < 50; i++) {
-					std::string test = s_patha + "\\bin";
-
-					if (i >= 0) {
-						test += "_";
-						if (i >= 10) {
-							test += std::to_string(i);
-						}
-						else {
-							test += "0" + std::to_string(i);
-						}
-					}
-
-					bin = test;
-
-					test = test + "\\DllSafeCheck.dll";
-					std::ifstream f(test.c_str());
-
-					if (f.good()) {
-						s_patha = test;
-						found = true;
-						break;
-					}
-				}
-
-				if (!found) {
-					MessageBox(NULL, "Local Zoom bin folder not found.", ":(", NULL);
-					return ERROR;
-				}
-			}
-			else {
-				MessageBox(NULL, "Local Zoom bin folder not found.", ":(", NULL);
-				return ERROR;
-			}
-
-			const char* cpath = s_patha.c_str();
-
-			std::cout << "[+] Zoom bin path found at: " << bin << std::endl << std::endl;
-
-			std::cout << "[+] Patching DLL at: " << cpath << std::endl;
-
-			newpath = bin + "\\DllSafeCheck.dll.original";
-
-			std::ifstream f(newpath.c_str());
-			if (f.good()) {
-				std::cout << "[-] Backup DLL found at: " << newpath << ", no backup will happen until that file is moved! \n\n[?] Do you still want to patch? (y/n)" << std::endl;
-				backup = false;
-
-				for (;; Sleep(1)) {
-					if (GetAsyncKeyState(0x4E)) {
-						doPatch = false;
-						break;
-					}
-					if (GetAsyncKeyState(0x59)) {
-						break;
-					}
-				}
-			}
-			else {
-				std::cout << "[+] Backup saved to .original." << std::endl;
-				rename(cpath, newpath.c_str());
-			}
-
-			if (doPatch) {
-				std::ofstream patchDLL;
-				patchDLL.open(cpath, std::ios_base::binary);
-				patchDLL.write(reinterpret_cast<const char*>(patchedDLLbytes), 59224); //BYTES
-				patchDLL.close();
-
-				std::cout << "\n[+] Success! Patched DLL at: " << cpath << std::endl;
-
-				Sleep(2000);
-				return ERROR_SUCCESS;
-			}
-
-			goto end;
-		}
+		//removed due to it breaking screensharing
 		Sleep(1);
 	}
 

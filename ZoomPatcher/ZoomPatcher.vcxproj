@@ -148,9 +148,6 @@
   <ItemGroup>
     <ClCompile Include="ZoomPatcher.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="patchedDLL.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
