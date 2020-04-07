@@ -2,9 +2,15 @@
 
 # ZoomWebcamFix
 
-A simple program to unblock webcams blocked by Zoom. 
+A simple program to unblock webcams blocked by Zoom. <br/>
+***Go to "releases" tab for compiled downloads.***
 
 ## Usage
+
+Download the latest release from the releases tab.
+
+Launch the program **before** zoom. Start zoom.<br/>
+For file patch (secondary, recommended runtime patch), click HOME before launching Zoom, and then launch Zoom.
 
 This software has two modes of patching.
 
