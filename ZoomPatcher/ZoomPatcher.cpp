@@ -8,7 +8,7 @@
 #include <sys/stat.h>
 #include <string>
 #include <fstream>
-#include "patchedDLL.h"
+#include "patchedDLL.hpp"
 
 
 DWORD pids[16];
