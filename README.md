@@ -1,6 +1,8 @@
+[![HitCount](http://hits.dwyl.com/vaxerski/ZoomWebcamFix.svg)](http://hits.dwyl.com/vaxerski/ZoomWebcamFix)
+
 # ZoomWebcamFix
 
-A simple program to unblock webcams blocked by Zoom.
+A simple program to unblock webcams blocked by Zoom. 
 
 ## Usage
 
