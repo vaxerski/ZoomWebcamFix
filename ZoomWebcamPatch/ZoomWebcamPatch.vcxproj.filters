@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Pliki źródłowe\main">
+      <UniqueIdentifier>{d4e73268-6aed-44c5-8dad-0530a396d226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\helpers">
+      <UniqueIdentifier>{f65eddec-f6d0-432e-9858-039b51e26697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\core">
+      <UniqueIdentifier>{1df0c647-a037-41f8-9510-a7ed7680c711}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Pliki źródłowe\main</Filter>
+    </ClInclude>
+    <ClInclude Include="detours.h">
+      <Filter>Pliki źródłowe\helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="detver.h">
+      <Filter>Pliki źródłowe\helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="sigscan.h">
+      <Filter>Pliki źródłowe\helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="DLLS.h">
+      <Filter>Pliki źródłowe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks.h">
+      <Filter>Pliki źródłowe\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Pliki źródłowe\main</Filter>
+    </ClCompile>
+    <ClCompile Include="DLLS.cpp">
+      <Filter>Pliki źródłowe\core</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks.cpp">
+      <Filter>Pliki źródłowe\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
