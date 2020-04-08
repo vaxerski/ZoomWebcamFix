@@ -2,6 +2,8 @@
 
 # ZoomWebcamFix
 
+***As of Zoom v4.6.10 the issue seems to have been fixed by zoom.***
+
 A simple program to unblock webcams blocked by Zoom. <br/>
 ***Go to "releases" tab for compiled downloads.***
 
