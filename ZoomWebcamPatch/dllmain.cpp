@@ -11,8 +11,7 @@ cHooks* hooks;
 
 //---------CLASSES---------//
 
-
-DWORD WINAPI initThread(LPVOID param) {
+DWORD WINAPI guardThread(LPVOID param) {
 
 	//--------modules--------//
 
@@ -37,7 +36,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	switch (dwReason)
 	{
 	case DLL_PROCESS_ATTACH:
-		uwu(nullptr, 0, initThread, nullptr, 0, nullptr);
+		uwu(nullptr, 0, guardThread, nullptr, 0, nullptr);
 		DisableThreadLibraryCalls(hModule);
 		break;
 	case DLL_THREAD_ATTACH:

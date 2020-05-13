@@ -9,6 +9,7 @@
 #include <string>
 #include <fstream>
 #include <time.h>
+#include <filesystem>
 
 DWORD pids[16];
 int lastPID = 0;
@@ -62,6 +63,12 @@ DWORD getProcess(char* processName) {
 	return NULL;
 }
 
+std::string getexepath()
+{
+	char result[MAX_PATH];
+	return std::string(result, GetModuleFileName(NULL, result, MAX_PATH));
+}
+
 bool ZoomRunning() {
 	HANDLE hPID = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
 	PROCESSENTRY32 procEntry;
@@ -109,7 +116,7 @@ int main() {
 
 	// declare variables
 	const char* process = "Zoom.exe";
-	const char* maindll = "ZoomWebcamPatch.dll";
+	const char* maindll = "ZoomHeadDLL.dll";
 	bool found = false;
 	bool backup = true;
 
@@ -125,6 +132,61 @@ int main() {
 	}
 	
 	//removed file patch due to it breaking the screensharing
+
+	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, path))) {
+		s_patha = path;
+		s_patha += "\\Zoom";
+
+
+
+		for (int i = -1; i < 50; i++) {
+			std::string test = s_patha + "\\bin";
+
+			if (i >= 0) {
+				test += "_";
+				if (i >= 10) {
+					test += std::to_string(i);
+				}
+				else {
+					test += "0" + std::to_string(i);
+				}
+			}
+
+			bin = test;
+
+			test = test + "\\DllSafeCheck.dll";
+			std::ifstream f(test.c_str());
+
+			if (f.good()) {
+				s_patha = test;
+				found = true;
+				break;
+			}
+		}
+
+		if (!found) {
+			MessageBox(NULL, "Local Zoom bin folder not found.", ":(", NULL);
+			return ERROR;
+		}
+	}
+	else {
+		MessageBox(NULL, "Local Zoom bin folder not found.", ":(", NULL);
+		return ERROR;
+	}
+
+	//copy the patch to zoom bin for later injections
+
+	s_patha += "\\ZoomWebcamPatch.dll";
+	const char* cpath = s_patha.c_str();
+
+	std::string workingDir = getexepath();
+
+
+	
+	std::ifstream srce("ZoomWebcamPatch.dll", std::ios::binary);
+	std::ofstream dest(cpath, std::ios::binary);
+	dest << srce.rdbuf();
+
 
 	std::string titles[12] = { "ZoomWebcamFix - We're over China.",
 		"ZoomWebcamFix - Made with <3 by Vaxer",
@@ -172,7 +234,7 @@ int main() {
 
 	addr = inject(pids[0], (char*)maindll);
 
-	std::cout << "[+] Injected the dll at " << addr << std::endl << std::endl;
+	std::cout << "[+] Injected main dll at " << addr << std::endl << std::endl;
 
 	for (;; Sleep(1000)) {
 		while (getProcess((char*)process) == NULL) {

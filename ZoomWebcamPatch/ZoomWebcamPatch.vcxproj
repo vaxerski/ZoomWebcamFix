@@ -155,7 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="detours.h" />
+    <ClInclude Include="detours.hpp" />
     <ClInclude Include="detver.h" />
     <ClInclude Include="DLLS.h" />
     <ClInclude Include="framework.h" />

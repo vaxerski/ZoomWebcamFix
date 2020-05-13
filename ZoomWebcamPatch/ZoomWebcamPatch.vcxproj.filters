@@ -27,9 +27,6 @@
     <ClInclude Include="framework.h">
       <Filter>Pliki źródłowe\main</Filter>
     </ClInclude>
-    <ClInclude Include="detours.h">
-      <Filter>Pliki źródłowe\helpers</Filter>
-    </ClInclude>
     <ClInclude Include="detver.h">
       <Filter>Pliki źródłowe\helpers</Filter>
     </ClInclude>
@@ -41,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="hooks.h">
       <Filter>Pliki źródłowe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="detours.hpp">
+      <Filter>Pliki źródłowe\helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

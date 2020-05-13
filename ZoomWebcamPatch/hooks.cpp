@@ -20,16 +20,19 @@ BOOL WINAPI hooked_SafeCheckDLLMAIN(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID 
 }
 
 cHooks::cHooks() {
-
 	//----------ADDRESSES----------//
 
-	dwHackCheckMain = sigscan->FindPattern((char*)modules->mZoom, (char*)"\xE8\x00\x00\x00\x00\x68\x00\x00\x00\x00\xFF\x15", (char*)"x????x????xx");
-	dwDllMainSafeCheck = sigscan->FindPattern((char*)modules->mDllSafeCheck, (char*)"\x83\x7C\x24\x00\x00\x75\x41", (char*)"xxx??xx");
+	// Zoom v5.0.2 (24046.0510) kind of tested
+	//dwHackCheckMain = sigscan->FindPattern((char*)modules->mZoom, (char*)"\x83\x7C\x24\x00\x00\x75\x41", (char*)"xxx??xx");
+	dwDllMainSafeCheck = sigscan->FindPattern((char*)modules->mDllSafeCheck, (char*)"\x83\x7C\x24\x00\x00\x75\x41", (char*)"xxx??xx"); //removed cuz its stupid
 
 	//-----------------------------//
 
-	if (dwHackCheckMain == 0 || dwDllMainSafeCheck == 0) {
-		std::string errormsg = "Sigscan failed! \n\ndwHackCheckMain = " + std::to_string(dwHackCheckMain); +"\ndwDllMainSafeCheck = " + std::to_string(dwDllMainSafeCheck) + "\n\nReport the issue on GitHub.";
+	if (dwDllMainSafeCheck == 0) {
+
+		std::string errormsg = "Sigscan failed! \n\ndwDllMainSafeCheck = " + 
+			std::to_string(dwDllMainSafeCheck) +
+			"\n\nReport the issue on GitHub. I won't see it on any other forums.";
 		std::wstring w_errormsg = std::wstring(errormsg.begin(), errormsg.end());
 		MessageBoxW(NULL, w_errormsg.c_str(), L":(", NULL);
 	}
@@ -38,7 +41,8 @@ cHooks::cHooks() {
 
 	//----------ASM HOOKS----------//
 
-	doAsmHook((void*)dwHackCheckMain, &bytePatchSafeCheck, 5);
+	// not needed
+	//doAsmHook((void*)dwHackCheckMain, &bytePatchSafeCheck, 5);
 
 	//-----------------------------//
 
